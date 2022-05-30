@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">Vacina em Dia</string>
+
+    <string name="tela_inicial">Tela Inicial</string>
+    <string name="tela_Adicionar_Vacina">Preencha os campos abaixo com as informações da vacina</string>
+    <string name="add_vacina">Botão para Adicionar uma Vacina</string>
+
+    <string name="nome_vacina">Nome da Vacina:</string>
+    <string name="status_vacina">Você já tomou está vacina?</string>
+    <string name="doses_recebidas">Quantas doses desta Vacina você já tomou?</string>
+    <string name="data_doses_recebidas">Quando você recebeu a última doses desta Vacina?</string>
+    <string name="data_exemplo">Exemplo: 21/01/2015</string>
+
+    <!-- Activity Detalhe Vacina -->
+    <string name="prevencao">O que está vacina previne?</string>
+    <string name="idede">Quando devo toma-la?</string>
+    <string name="doses_necessaria">Quantas doses são necessaria?</string>
+    <string name="modo_aplicacao">Como ela é aplicada?</string>
+    <string name="detalhes">Detalhes sobre a Vacina!!!!</string>
+
+
+    <string name="botao_salvar">Salvar</string>
+    <string name="botao_editar">Editar Informações</string>
+    <string name="botao_excluir">Excluir Vacina</string>
+
+    <string name="vacinado">1</string>
+    <string name="vacina_pendente">0</string>
+
+
+</resources>

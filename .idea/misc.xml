@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/wintemp/Projetos/VacinaemDia/app/src/main/res/drawable/caixa_texto_customizada.xml" value="0.1875" />
+        <entry key="..\:/wintemp/Projetos/VacinaemDia/app/src/main/res/layout/activity_adicionar_vacina.xml" value="0.33" />
+        <entry key="..\:/wintemp/Projetos/VacinaemDia/app/src/main/res/layout/activity_detalhes_vacina.xml" value="0.33" />
+        <entry key="..\:/wintemp/Projetos/VacinaemDia/app/src/main/res/layout/activity_editar_vacina.xml" value="0.33" />
+        <entry key="..\:/wintemp/Projetos/VacinaemDia/app/src/main/res/layout/activity_main.xml" value="0.17916666666666667" />
+        <entry key="..\:/wintemp/Projetos/VacinaemDia/app/src/main/res/layout/activity_tela_inicial.xml" value="0.25" />
+        <entry key="..\:/wintemp/Projetos/VacinaemDia/app/src/main/res/layout/adapter_lista.xml" value="0.33" />
+        <entry key="..\:/wintemp/Projetos/VacinaemDia/app/src/main/res/layout/formulario_vacina.xml" value="0.33" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/nome_vacina"
+        android:textColor="@color/preto"
+        android:textSize="22sp" />
+
+    <EditText
+        android:id="@+id/boxNomeVacina"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/caixa_texto_customizada"
+        android:ems="10"
+        android:hint="@string/nome_vacina"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:padding="8dp" />
+
+    <Switch
+        android:id="@+id/switchStatusVacina"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checked="false"
+        android:minHeight="48dp"
+        android:text="@string/status_vacina"
+        android:textOff="@string/vacina_pendente"
+        android:textOn="@string/vacinado"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/doses_recebidas"
+        android:textColor="@color/preto"
+        android:textColorHint="@color/preto"
+        android:textSize="20sp"
+        android:visibility="visible" />
+
+    <EditText
+        android:id="@+id/boxDosesRecebidas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/caixa_texto_customizada"
+        android:ems="10"
+        android:inputType="number"
+        android:minHeight="48dp"
+        android:padding="8dp" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/data_doses_recebidas"
+        android:textColor="@color/preto"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/boxDataUltVacinacao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/caixa_texto_customizada"
+        android:ems="10"
+        android:hint="@string/data_exemplo"
+        android:inputType="date"
+        android:minHeight="48dp"
+        android:padding="8dp" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/prevencao"
+        android:textColor="@color/preto"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/boxPrevencao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/caixa_texto_customizada"
+        android:ems="10"
+        android:gravity="top|left"
+        android:inputType="textMultiLine|textPersonName"
+        android:lines="3"
+        android:maxLines="6"
+        android:minHeight="48dp"
+        android:minLines="3"
+        android:nestedScrollingEnabled="true"
+        android:padding="8dp"
+        android:scrollbars="vertical"
+        android:singleLine="false" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/idede"
+        android:textColor="@color/preto"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/boxIdade"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/caixa_texto_customizada"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:padding="8dp" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/doses_necessaria"
+        android:textColor="@color/preto"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/boxDosesNecessarias"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/caixa_texto_customizada"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:padding="8dp" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/modo_aplicacao"
+        android:textColor="@color/preto"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/boxModoAplicacao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/caixa_texto_customizada"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:padding="8dp" />
+
+    <Button
+        android:id="@+id/buttonFormularioSalvar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/azul"
+        android:text="@string/botao_salvar"
+        android:textStyle="bold" />
+
+</LinearLayout>
