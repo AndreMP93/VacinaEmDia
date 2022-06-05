@@ -7,9 +7,6 @@ class Vacina(var idVacina: Int,
              var statusVacina: Int?,
              var dosesRecebidasVacina: Int,
              var dataUltimaDose: String,
-             var idadeIndicada: String,
-             var prevencao: String,
-             var dosesNecessaria: Int,
-             var modoAplicacao: String): Serializable{
+             var informacoes: String): Serializable{
 
 }

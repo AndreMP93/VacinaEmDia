@@ -16,11 +16,9 @@ private lateinit var botaoSalvar: Button
 private lateinit var boxNomeVacina: EditText
 private lateinit var switchStatus: Switch
 private lateinit var boxDosesRecebidas: EditText
-private lateinit var boxPrevencao: EditText
-private lateinit var boxIdadeRecomendada: EditText
-private lateinit var boxDosesNecessarias: EditText
+private lateinit var boxInformacoes: EditText
 private lateinit var boxDataVacinacao: EditText
-private lateinit var boxModoAplicacao: EditText
+
 
 private lateinit var bancoDados: BancoDadosHelper
 
@@ -42,18 +40,13 @@ class AdicionarVacinaActivity : AppCompatActivity() {
             }else{
                 val status = if (switchStatus.isChecked) 1 else 0
                 val dosesRecebidas = if(boxDosesRecebidas.text.toString() == "") 0 else boxDosesRecebidas.text.toString().toInt()
-                val dosesNecessarias = if(boxDosesNecessarias.text.toString() == "") 0 else boxDosesNecessarias.text.toString().toInt()
-
 
                 val v = Vacina(1,
                     boxNomeVacina.text.toString(),
                     status,
                     dosesRecebidas,
                     boxDataVacinacao.text.toString(),
-                    boxIdadeRecomendada.text.toString(),
-                    boxPrevencao.text.toString(),
-                    dosesNecessarias,
-                    boxModoAplicacao.text.toString())
+                    boxInformacoes.text.toString())
 
                 val db = BancoDadosHelper(applicationContext)
                 try {
@@ -77,20 +70,14 @@ class AdicionarVacinaActivity : AppCompatActivity() {
         switchStatus = findViewById(R.id.switchStatusVacina)
         boxDataVacinacao = findViewById(R.id.boxDataUltVacinacao)
         boxDosesRecebidas = findViewById(R.id.boxDosesRecebidas)
-        boxPrevencao = findViewById(R.id.boxPrevencao)
-        boxDosesNecessarias = findViewById(R.id.boxDosesNecessarias)
-        boxIdadeRecomendada = findViewById(R.id.boxIdade)
-        boxModoAplicacao = findViewById(R.id.boxModoAplicacao)
+        boxInformacoes = findViewById(R.id.boxInformacoes)
     }
 
     fun limparCampos(){
         boxNomeVacina.setText("")
         boxDataVacinacao.setText("")
         boxDosesRecebidas.setText("")
-        boxPrevencao.setText("")
-        boxDosesNecessarias.setText("")
-        boxIdadeRecomendada.setText("")
-        boxModoAplicacao.setText("")
+        boxInformacoes.setText("")
         switchStatus.isChecked = false
     }
 

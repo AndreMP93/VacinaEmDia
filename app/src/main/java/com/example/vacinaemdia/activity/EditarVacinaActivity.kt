@@ -1,6 +1,5 @@
 package com.example.vacinaemdia.activity
 
-import android.content.ContentValues
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -17,11 +16,9 @@ private lateinit var botaoSalvar: Button
 private lateinit var boxNomeVacina: EditText
 private lateinit var switchStatus: Switch
 private lateinit var boxDosesRecebidas: EditText
-private lateinit var boxPrevencao: EditText
-private lateinit var boxIdadeRecomendada: EditText
-private lateinit var boxDosesNecessarias: EditText
 private lateinit var boxDataVacinacao: EditText
-private lateinit var boxModoAplicacao: EditText
+private lateinit var boxInformacoes: EditText
+
 private lateinit var vacina: Vacina
 
 class EditarVacinaActivity : AppCompatActivity() {
@@ -48,7 +45,6 @@ class EditarVacinaActivity : AppCompatActivity() {
             }else{
                 val status = if (switchStatus.isChecked) 1 else 0
                 val dosesRecebidas = if(boxDosesRecebidas.text.toString() == "") 0 else boxDosesRecebidas.text.toString().toInt()
-                val dosesNecessarias = if(boxDosesNecessarias.text.toString() == "") 0 else boxDosesNecessarias.text.toString().toInt()
 
                 val v = Vacina(
                     vacina.idVacina,
@@ -56,10 +52,7 @@ class EditarVacinaActivity : AppCompatActivity() {
                     status,
                     dosesRecebidas,
                     boxDataVacinacao.text.toString(),
-                    boxIdadeRecomendada.text.toString(),
-                    boxPrevencao.text.toString(),
-                    dosesNecessarias,
-                    boxModoAplicacao.text.toString())
+                    boxInformacoes.text.toString())
 
                 val db = BancoDadosHelper(applicationContext)
                 try {
@@ -84,19 +77,13 @@ class EditarVacinaActivity : AppCompatActivity() {
         switchStatus = findViewById(R.id.switchStatusVacina)
         boxDataVacinacao = findViewById(R.id.boxDataUltVacinacao)
         boxDosesRecebidas = findViewById(R.id.boxDosesRecebidas)
-        boxPrevencao = findViewById(R.id.boxPrevencao)
-        boxDosesNecessarias = findViewById(R.id.boxDosesNecessarias)
-        boxIdadeRecomendada = findViewById(R.id.boxIdade)
-        boxModoAplicacao = findViewById(R.id.boxModoAplicacao)
+        boxInformacoes = findViewById(R.id.boxInformacoes)
 
         boxNomeVacina.setText(v.nomeVacina)
         switchStatus.isChecked = v.statusVacina == 1
         boxDataVacinacao.setText(v.dataUltimaDose)
         boxDosesRecebidas.setText(v.dosesRecebidasVacina.toString())
-        boxPrevencao.setText(v.prevencao)
-        boxDosesNecessarias.setText(v.dosesNecessaria.toString())
-        boxIdadeRecomendada.setText(v.idadeIndicada)
-        boxModoAplicacao.setText(v.modoAplicacao)
+        boxInformacoes.setText(v.informacoes)
     }
 }
 

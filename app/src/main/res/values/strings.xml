@@ -12,10 +12,8 @@
     <string name="data_exemplo">Exemplo: 21/01/2015</string>
 
     <!-- Activity Detalhe Vacina -->
-    <string name="prevencao">O que está vacina previne?</string>
+    <string name="informacoes">Informações sobre avacina:</string>
     <string name="idede">Quando devo toma-la?</string>
-    <string name="doses_necessaria">Quantas doses são necessaria?</string>
-    <string name="modo_aplicacao">Como ela é aplicada?</string>
     <string name="detalhes">Detalhes sobre a Vacina!!!!</string>
 
 

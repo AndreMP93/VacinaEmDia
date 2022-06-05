@@ -81,12 +81,12 @@
         android:id="@+id/textView8"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/prevencao"
+        android:text="@string/informacoes"
         android:textColor="@color/preto"
         android:textSize="20sp" />
 
     <EditText
-        android:id="@+id/boxPrevencao"
+        android:id="@+id/boxInformacoes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -102,63 +102,6 @@
         android:padding="8dp"
         android:scrollbars="vertical"
         android:singleLine="false" />
-
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/idede"
-        android:textColor="@color/preto"
-        android:textSize="20sp" />
-
-    <EditText
-        android:id="@+id/boxIdade"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/caixa_texto_customizada"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:minHeight="48dp"
-        android:padding="8dp" />
-
-    <TextView
-        android:id="@+id/textView11"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/doses_necessaria"
-        android:textColor="@color/preto"
-        android:textSize="20sp" />
-
-    <EditText
-        android:id="@+id/boxDosesNecessarias"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/caixa_texto_customizada"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:minHeight="48dp"
-        android:padding="8dp" />
-
-    <TextView
-        android:id="@+id/textView12"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/modo_aplicacao"
-        android:textColor="@color/preto"
-        android:textSize="20sp" />
-
-    <EditText
-        android:id="@+id/boxModoAplicacao"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/caixa_texto_customizada"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:minHeight="48dp"
-        android:padding="8dp" />
 
     <Button
         android:id="@+id/buttonFormularioSalvar"

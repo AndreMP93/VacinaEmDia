@@ -20,10 +20,7 @@ class BancoDadosHelper(context: Context?) : SQLiteOpenHelper(context, name, fact
         const val cStatus = "status"
         const val cDosesRecebidas = "doses_recebidas"
         const val cDataUltimaDose = "data_ultima_dose"
-        const val cIdadeIndicada = "idade_indicada"
-        const val cPrevencao = "prevencao"
-        const val cDosesNecessarias = "doses_necessarias"
-        const val cModoAplicacao = "modo_aplicacao"
+        const val cInformacoes = "informacoes"
     }
 
 
@@ -36,10 +33,7 @@ class BancoDadosHelper(context: Context?) : SQLiteOpenHelper(context, name, fact
                 "$cStatus boolean not null, " +
                 "$cDosesRecebidas INT (1), " +
                 "$cDataUltimaDose date," +
-                "$cIdadeIndicada VARCHAR, " +
-                "$cPrevencao VARCHAR, " +
-                "$cDosesNecessarias INT (1), " +
-                "$cModoAplicacao VARCHAR);"
+                "$cInformacoes VARCHAR);"
         try {
 
             db?.execSQL(query)
@@ -73,10 +67,7 @@ class BancoDadosHelper(context: Context?) : SQLiteOpenHelper(context, name, fact
         valores.put(cStatus, v.statusVacina)
         valores.put(cDosesRecebidas, v.dosesRecebidasVacina)
         valores.put(cDataUltimaDose, v.dataUltimaDose)
-        valores.put(cPrevencao, v.prevencao)
-        valores.put(cIdadeIndicada, v.idadeIndicada)
-        valores.put(cDosesNecessarias, v.dosesNecessaria)
-        valores.put(cModoAplicacao, v.modoAplicacao)
+        valores.put(cInformacoes, v.informacoes)
 
         val _success = db.insert(tabelaVacinas,null,valores)
 
@@ -94,10 +85,7 @@ class BancoDadosHelper(context: Context?) : SQLiteOpenHelper(context, name, fact
         val indiceStatus = cursor.getColumnIndex(cStatus)
         val indiceDosesReceb = cursor.getColumnIndex(cDosesRecebidas)
         val indiceData = cursor.getColumnIndex(cDataUltimaDose)
-        val indiceIdade = cursor.getColumnIndex(cIdadeIndicada)
-        val indicePrevencao = cursor.getColumnIndex(cPrevencao)
-        val indiceDosesNeces = cursor.getColumnIndex(cDosesNecessarias)
-        val indiceModoAplic = cursor.getColumnIndex(cModoAplicacao)
+        val indiceInformacoes = cursor.getColumnIndex(cInformacoes)
         cursor.close()
 
         return Vacina(
@@ -106,10 +94,8 @@ class BancoDadosHelper(context: Context?) : SQLiteOpenHelper(context, name, fact
             cursor.getInt(indiceStatus),
             cursor.getInt(indiceDosesReceb),
             cursor.getString(indiceData),
-            cursor.getString(indiceIdade),
-            cursor.getString(indicePrevencao),
-            cursor.getInt(indiceDosesNeces),
-            cursor.getString(indiceModoAplic)
+            cursor.getString(indiceInformacoes)
+
         )
     }
 
@@ -119,19 +105,15 @@ class BancoDadosHelper(context: Context?) : SQLiteOpenHelper(context, name, fact
         val query = "SELECT * FROM $tabelaVacinas;"
         val cursor: Cursor = bancoDados.rawQuery(query, null)
         val indiceId = cursor.getColumnIndex(cID)
-        val indiceNome = cursor.getColumnIndex("nome")
-        val indiceStatus = cursor.getColumnIndex("status")
-        val indiceDosesReceb = cursor.getColumnIndex("doses_recebidas")
-        val indiceData = cursor.getColumnIndex("data_ultima_dose")
-        val indiceIdade = cursor.getColumnIndex("idade_indicada")
-        val indicePrevencao = cursor.getColumnIndex("prevencao")
-        val indiceDosesNeces = cursor.getColumnIndex("doses_necessarias")
-        val indiceModoAplic = cursor.getColumnIndex("modo_aplicacao")
+        val indiceNome = cursor.getColumnIndex(cNome)
+        val indiceStatus = cursor.getColumnIndex(cStatus)
+        val indiceDosesReceb = cursor.getColumnIndex(cDosesRecebidas)
+        val indiceData = cursor.getColumnIndex(cDataUltimaDose)
+        val indiceInformacoes = cursor.getColumnIndex(cInformacoes)
 
         cursor.moveToFirst()
 
         while (cursor != null) {
-            println("TESTE: XXX.")
             v.add(
                 Vacina(
                     cursor.getInt(indiceId),
@@ -139,10 +121,7 @@ class BancoDadosHelper(context: Context?) : SQLiteOpenHelper(context, name, fact
                     cursor.getInt(indiceStatus),
                     cursor.getInt(indiceDosesReceb),
                     cursor.getString(indiceData),
-                    cursor.getString(indiceIdade),
-                    cursor.getString(indicePrevencao),
-                    cursor.getInt(indiceDosesNeces),
-                    cursor.getString(indiceModoAplic)
+                    cursor.getString(indiceInformacoes)
                 )
             )
             cursor.moveToNext()
@@ -156,10 +135,7 @@ class BancoDadosHelper(context: Context?) : SQLiteOpenHelper(context, name, fact
         valores.put(cStatus, v.statusVacina)
         valores.put(cDosesRecebidas, v.dosesRecebidasVacina)
         valores.put(cDataUltimaDose, v.dataUltimaDose)
-        valores.put(cPrevencao, v.prevencao)
-        valores.put(cIdadeIndicada, v.idadeIndicada)
-        valores.put(cDosesNecessarias, v.dosesNecessaria)
-        valores.put(cModoAplicacao, v.modoAplicacao)
+        valores.put(cInformacoes, v.informacoes)
 
         val _success = db.update(tabelaVacinas, valores, cID + "=?", arrayOf(v.idVacina.toString())).toLong()
         db.close()

@@ -3,9 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/wintemp/Projetos/VacinaemDia/app/src/main/res/drawable/botao_customizado.xml" value="0.185" />
         <entry key="..\:/wintemp/Projetos/VacinaemDia/app/src/main/res/drawable/caixa_texto_customizada.xml" value="0.1875" />
+        <entry key="..\:/wintemp/Projetos/VacinaemDia/app/src/main/res/drawable/ic_delete_24.xml" value="0.185" />
+        <entry key="..\:/wintemp/Projetos/VacinaemDia/app/src/main/res/drawable/ic_edit_24.xml" value="0.185" />
+        <entry key="..\:/wintemp/Projetos/VacinaemDia/app/src/main/res/layout-land/activity_main.xml" value="0.2453125" />
         <entry key="..\:/wintemp/Projetos/VacinaemDia/app/src/main/res/layout/activity_adicionar_vacina.xml" value="0.33" />
-        <entry key="..\:/wintemp/Projetos/VacinaemDia/app/src/main/res/layout/activity_detalhes_vacina.xml" value="0.33" />
+        <entry key="..\:/wintemp/Projetos/VacinaemDia/app/src/main/res/layout/activity_detalhes_vacina.xml" value="0.5" />
         <entry key="..\:/wintemp/Projetos/VacinaemDia/app/src/main/res/layout/activity_editar_vacina.xml" value="0.33" />
         <entry key="..\:/wintemp/Projetos/VacinaemDia/app/src/main/res/layout/activity_main.xml" value="0.17916666666666667" />
         <entry key="..\:/wintemp/Projetos/VacinaemDia/app/src/main/res/layout/activity_tela_inicial.xml" value="0.25" />
