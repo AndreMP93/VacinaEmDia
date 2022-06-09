@@ -12,16 +12,16 @@ import com.example.vacinaemdia.BancoDadosHelper
 import com.example.vacinaemdia.R
 import com.example.vacinaemdia.model.Vacina
 
-private lateinit var botaoSalvar: Button
-private lateinit var boxNomeVacina: EditText
-private lateinit var switchStatus: Switch
-private lateinit var boxDosesRecebidas: EditText
-private lateinit var boxDataVacinacao: EditText
-private lateinit var boxInformacoes: EditText
-
-private lateinit var vacina: Vacina
 
 class EditarVacinaActivity : AppCompatActivity() {
+
+    private lateinit var botaoSalvar: Button
+    private lateinit var boxNomeVacina: EditText
+    private lateinit var switchStatus: Switch
+    private lateinit var boxDosesRecebidas: EditText
+    private lateinit var boxDataVacinacao: EditText
+    private lateinit var boxInformacoes: EditText
+    private lateinit var vacina: Vacina
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
