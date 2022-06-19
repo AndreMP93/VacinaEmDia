@@ -37,11 +37,11 @@ class BancoDadosHelper(context: Context?) : SQLiteOpenHelper(context, name, fact
         try {
 
             db?.execSQL(query)
-            Log.i("TESTE:", "Sucessoa ao Instalar APP")
+            Log.i("BD:", "Sucessoa ao Instalar APP")
 
         }catch (e: Exception){
             e.printStackTrace()
-            Log.i("TESTE:", "ERRO ao Instalar APP")
+            Log.i("Erro:", "ERRO ao Instalar APP")
 
         }
     }
@@ -53,10 +53,10 @@ class BancoDadosHelper(context: Context?) : SQLiteOpenHelper(context, name, fact
 
             db?.execSQL( query)
             onCreate(db)
-            Log.i("TESTE:", "Sucessoa ao Atualizar APP")
+            Log.i("BD:", "Sucessoa ao Atualizar APP")
 
         }catch (e: Exception){
-            Log.i("TESTE:", "Erro ao Atualizar APP")
+            Log.i("Erro:", "Erro ao Atualizar APP")
         }
     }
 
@@ -86,21 +86,22 @@ class BancoDadosHelper(context: Context?) : SQLiteOpenHelper(context, name, fact
         val indiceDosesReceb = cursor.getColumnIndex(cDosesRecebidas)
         val indiceData = cursor.getColumnIndex(cDataUltimaDose)
         val indiceInformacoes = cursor.getColumnIndex(cInformacoes)
-        cursor.close()
 
-        return Vacina(
+        val vacina = Vacina(
             cursor.getInt(indiceId),
             cursor.getString(indiceNome),
             cursor.getInt(indiceStatus),
             cursor.getInt(indiceDosesReceb),
             cursor.getString(indiceData),
             cursor.getString(indiceInformacoes)
-
         )
+        cursor.close()
+
+        return vacina
     }
 
     fun listarVacinas(v: ArrayList<Vacina>) {
-
+        v.clear()
         val bancoDados = writableDatabase
         val query = "SELECT * FROM $tabelaVacinas;"
         val cursor: Cursor = bancoDados.rawQuery(query, null)
@@ -112,19 +113,20 @@ class BancoDadosHelper(context: Context?) : SQLiteOpenHelper(context, name, fact
         val indiceInformacoes = cursor.getColumnIndex(cInformacoes)
 
         cursor.moveToFirst()
-
-        while (cursor != null) {
-            v.add(
-                Vacina(
-                    cursor.getInt(indiceId),
-                    cursor.getString(indiceNome),
-                    cursor.getInt(indiceStatus),
-                    cursor.getInt(indiceDosesReceb),
-                    cursor.getString(indiceData),
-                    cursor.getString(indiceInformacoes)
+        if(cursor != null) {
+            do {
+                v.add(
+                    Vacina(
+                        cursor.getInt(indiceId),
+                        cursor.getString(indiceNome),
+                        cursor.getInt(indiceStatus),
+                        cursor.getInt(indiceDosesReceb),
+                        cursor.getString(indiceData),
+                        cursor.getString(indiceInformacoes)
+                    )
                 )
-            )
-            cursor.moveToNext()
+                //cursor.moveToNext()
+            } while (cursor.moveToNext())
         }
     }
 

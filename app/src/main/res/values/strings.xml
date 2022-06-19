@@ -15,6 +15,9 @@
     <string name="informacoes">Informações sobre avacina:</string>
     <string name="idede">Quando devo toma-la?</string>
     <string name="detalhes">Detalhes sobre a Vacina!!!!</string>
+    <string name="statusVacinaPendente">Vacina Pendente</string>
+    <string name="statusData">Vacinado em</string>
+    <string name="statusDoses">Doses da Vacina Recebidas:</string>
 
 
     <string name="botao_salvar">Salvar</string>

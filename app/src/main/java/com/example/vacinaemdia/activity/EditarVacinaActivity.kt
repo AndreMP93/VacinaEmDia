@@ -39,7 +39,6 @@ class EditarVacinaActivity : AppCompatActivity() {
         botaoSalvar.setOnClickListener {
 
             if(boxNomeVacina.text.toString() == ""){
-                println("TESTE: NOME EM BRANCO")
                 boxNomeVacina.hint = "Campo Obrigatorio"
                 boxNomeVacina.setHintTextColor(ContextCompat.getColor(applicationContext, R.color.vermelho))
             }else{
@@ -56,19 +55,16 @@ class EditarVacinaActivity : AppCompatActivity() {
 
                 val db = BancoDadosHelper(applicationContext)
                 try {
-                    println("Teste: ** ${db.updateVacinas(v)}")
+                    db.updateVacinas(v)
+                    finish()
                 }catch (e: Exception){
                     Log.i("TESTE:", "ERRO AO ATUALIZAR VACINA")
 
                 }
-                val intent = Intent(applicationContext, DetalhesVacinaActivity::class.java)
-                intent.putExtra("objetoVacina", v)
-                startActivity(intent)
+
             }
 
         }
-
-
     }
 
     fun inicializarVariaveis(v: Vacina){

@@ -81,6 +81,7 @@ class AdicionarVacinaActivity : AppCompatActivity() {
         }
 
         limparCampos()
+        finish()
     }
 
 }

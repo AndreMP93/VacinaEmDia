@@ -1,5 +1,6 @@
 package com.example.vacinaemdia.activity
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -22,6 +23,7 @@ class MainActivity : AppCompatActivity(), ClickItemVacinaListener {
     private lateinit var fabAddVacian: FloatingActionButton
     private lateinit var bancoDados: BancoDadosHelper
     private var listaVacinas = ArrayList<Vacina>()
+    private lateinit var adaptador: AdapterVacina
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,13 +32,18 @@ class MainActivity : AppCompatActivity(), ClickItemVacinaListener {
         fabAddVacian = findViewById(R.id.fabAddVacina)
         fabAddVacian.setOnClickListener {
             startActivity(Intent(applicationContext, AdicionarVacinaActivity::class.java))
-            println("Teste: 0")
         }
 
         //Configurando Banco de Dados
         bancoDados = BancoDadosHelper(applicationContext)
 
         //Carregando Dados da Tabela Vacinas
+
+    }
+
+    override fun onStart(){
+        super.onStart()
+
         try {
             bancoDados.listarVacinas(listaVacinas)
         }catch (e: Exception){
@@ -44,7 +51,7 @@ class MainActivity : AppCompatActivity(), ClickItemVacinaListener {
         }
 
         //Configurando o Adapter
-        val adaptador = AdapterVacina(listaVacinas, this)
+        adaptador = AdapterVacina(listaVacinas, this)
 
         //Configurando o RecycleView
         recyclerView = findViewById(R.id.recyclerViewVacinas)
@@ -55,13 +62,9 @@ class MainActivity : AppCompatActivity(), ClickItemVacinaListener {
 
     }
 
-
     override fun onItemClickListener(vacina: Vacina) {
-        println("RESULTADO TESTE: ${vacina.nomeVacina}")
-
         val intent = Intent(applicationContext, DetalhesVacinaActivity::class.java)
         intent.putExtra("objetoVacina", vacina)
-        Toast.makeText(applicationContext, "TESTE: ${vacina.nomeVacina}", Toast.LENGTH_LONG).show()
         startActivity(intent)
     }
 
