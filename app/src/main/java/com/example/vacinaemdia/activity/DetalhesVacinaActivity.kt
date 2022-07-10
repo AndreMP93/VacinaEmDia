@@ -6,70 +6,83 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Button
-import android.widget.ImageButton
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import com.example.vacinaemdia.BancoDadosHelper
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.vacinaemdia.R
+import com.example.vacinaemdia.database.VacinaEmDiaDatabase
+import com.example.vacinaemdia.database.repository.VacinasRepository
+import com.example.vacinaemdia.databinding.ActivityDetalhesVacinaBinding
 import com.example.vacinaemdia.model.Vacina
+import com.example.vacinaemdia.viewmodel.VacinaViewModel
+import com.example.vacinaemdia.viewmodel.VacinaViewModelFactory
+import kotlin.properties.Delegates
 
 class DetalhesVacinaActivity : AppCompatActivity() {
 
-    private lateinit var vacina: Vacina
+    private lateinit var viewModel: VacinaViewModel
+    private lateinit var binding: ActivityDetalhesVacinaBinding
+
+    private var vacina =  Vacina(" ", true, 0, "", "", 1)
+    private var idVacina by Delegates.notNull<Int>()
     private lateinit var nomeVacina: TextView
     private lateinit var detalheStatus: TextView
     private lateinit var detalheInformacoes: TextView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        binding = ActivityDetalhesVacinaBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detalhes_vacina)
+        setContentView(binding.root)
 
+        instanciarViewModel()
         inicializarVariaveis()
-        setSupportActionBar(findViewById(R.id.toolbar_Detalhes))
+
+        setSupportActionBar(binding.toolbarDetalhes)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         //Recuperando dados do MainActivity
         val dados: Bundle? = intent.extras
-
-        if(dados != null){
-            vacina = dados.getSerializable("objetoVacina") as Vacina
-        }
+        idVacina = dados?.getInt("idVacina")!!
+    }
 
 
+    override fun onStart(){
+        super.onStart()
+        buscarDadosVacina(idVacina)
+        viewModel.vacina.observe(this, Observer {
+            vacina = it
+            exibirDadosVacina()
+        })
     }
 
     @SuppressLint("SetTextI18n")
-    override fun onStart(){
-        super.onStart()
-        //Exibindo dados na Tela
-        val bancoDados = BancoDadosHelper(applicationContext)
-        vacina = bancoDados.getVacina(vacina.idVacina)
+    private fun exibirDadosVacina(){
         nomeVacina.text = vacina.nomeVacina
-        if(vacina.statusVacina == 1){
+        if(vacina.statusVacina){
             detalheStatus.setTextColor(ContextCompat.getColor(applicationContext, R.color.verde))
-            detalheStatus.text  = getString(R.string.statusData) + " ${vacina.dataUltimaDose}.\n" +
-                    getString(R.string.statusDoses) + " ${vacina.dosesRecebidasVacina}"
+            detalheStatus.text  =  "${getString(R.string.statusData)} ${vacina.dataUltimaDose}.\n" +
+                    "${getString(R.string.statusDoses)} ${vacina.dosesRecebidasVacina}"
         }else{
             detalheStatus.text = getString(R.string.statusVacinaPendente)
         }
         detalheInformacoes.text = vacina.informacoes
-
     }
 
+    private fun buscarDadosVacina(id: Int){
+        viewModel.buscaDadosVacina(id)
+    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.recursos_menu, menu)
         return super.onCreateOptionsMenu(menu)
     }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         when(item.itemId){
             R.id.editarVacina-> {editarVacina(vacina)}
             R.id.excluirVacina -> {excluirVacina(vacina)}
-
         }
         return super.onOptionsItemSelected(item)
     }
@@ -78,12 +91,9 @@ class DetalhesVacinaActivity : AppCompatActivity() {
         nomeVacina = findViewById(R.id.textViewNomeVacina)
         detalheStatus = findViewById(R.id.detalheStatusVacina)
         detalheInformacoes = findViewById(R.id.detalheInformacoes)
-
     }
-
     fun excluirVacina(v: Vacina){
-        val db = BancoDadosHelper(applicationContext)
-        db.deletarVacina(v.idVacina)
+        viewModel.excluirVacina(vacina)
         finish()
     }
 
@@ -91,6 +101,14 @@ class DetalhesVacinaActivity : AppCompatActivity() {
         val intent = Intent(applicationContext, EditarVacinaActivity::class.java)
         intent.putExtra("objetoVacina", v)
         startActivity(intent)
+    }
+
+    private fun instanciarViewModel(){
+        val bd = VacinaEmDiaDatabase.getInstance(this)
+        viewModel = ViewModelProvider(
+            this,
+            VacinaViewModelFactory(VacinasRepository(bd.vacinaDao))
+        ).get(VacinaViewModel::class.java)
     }
 
 }

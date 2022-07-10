@@ -6,18 +6,19 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vacinaemdia.R
+import com.example.vacinaemdia.databinding.AdapterListaBinding
 import com.example.vacinaemdia.model.Vacina
 
 class AdapterVacina(lista: ArrayList<Vacina>, val listenerAdapter: ClickItemVacinaListener): RecyclerView.Adapter<AdapterVacina.ViewHolderVacina>() {
 
     private var listaVacinas: ArrayList<Vacina> = lista
 
-    inner class ViewHolderVacina(itemView: View, val listenerVH: ClickItemVacinaListener): RecyclerView.ViewHolder(itemView){
+    inner class ViewHolderVacina(binding: AdapterListaBinding, val listenerVH: ClickItemVacinaListener): RecyclerView.ViewHolder(binding.root){
         var nomeVacina: TextView
         var statusVacina: TextView
         init {
-            nomeVacina = itemView.findViewById(R.id.textNome)
-            statusVacina = itemView.findViewById(R.id.textStatus)
+            nomeVacina = binding.textNome
+            statusVacina = binding.textStatus
 
             itemView.setOnClickListener {
                 listenerVH.onItemClickListener(listaVacinas[adapterPosition])
@@ -31,14 +32,16 @@ class AdapterVacina(lista: ArrayList<Vacina>, val listenerAdapter: ClickItemVaci
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderVacina {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.adapter_lista, parent, false)
-        return ViewHolderVacina(view, listenerAdapter)
+        //val view = LayoutInflater.from(parent.context).inflate(R.layout.adapter_lista, parent, false)
+
+        val binding = AdapterListaBinding.inflate(LayoutInflater.from(parent.context))
+        return ViewHolderVacina(binding, listenerAdapter)
     }
 
     override fun onBindViewHolder(holder: ViewHolderVacina, position: Int) {
         var v = listaVacinas[position]
         holder.nomeVacina.setText(v.nomeVacina)
-        if (v.statusVacina == 1){
+        if (v.statusVacina){
             holder.statusVacina.text = "Vacinado em ${v.dataUltimaDose}"
         }else{
             holder.statusVacina.text = "Vacinação Pendente"

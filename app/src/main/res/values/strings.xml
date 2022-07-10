@@ -27,5 +27,7 @@
     <string name="vacinado">1</string>
     <string name="vacina_pendente">0</string>
 
+    <string name="aviso_campo_obrigatorio">Campo Obrigatorio</string>
+
 
 </resources>

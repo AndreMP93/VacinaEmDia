@@ -1,76 +1,91 @@
 package com.example.vacinaemdia.activity
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.LinearLayout
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.vacinaemdia.BancoDadosHelper
-import com.example.vacinaemdia.R
 import com.example.vacinaemdia.adapters.AdapterVacina
 import com.example.vacinaemdia.adapters.ClickItemVacinaListener
+import com.example.vacinaemdia.database.VacinaEmDiaDatabase
+import com.example.vacinaemdia.database.repository.VacinasRepository
+import com.example.vacinaemdia.databinding.ActivityMainBinding
 import com.example.vacinaemdia.model.Vacina
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.example.vacinaemdia.viewmodel.VacinaViewModel
+import com.example.vacinaemdia.viewmodel.VacinaViewModelFactory
+import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity(), ClickItemVacinaListener {
 
+    private lateinit var viewModel: VacinaViewModel
     private lateinit var recyclerView: RecyclerView
-    private lateinit var fabAddVacian: FloatingActionButton
-    private lateinit var bancoDados: BancoDadosHelper
-    private var listaVacinas = ArrayList<Vacina>()
-    private lateinit var adaptador: AdapterVacina
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        fabAddVacian = findViewById(R.id.fabAddVacina)
-        fabAddVacian.setOnClickListener {
+        instanciarViewModel()
+
+        binding.fabAddVacina.setOnClickListener{
             startActivity(Intent(applicationContext, AdicionarVacinaActivity::class.java))
         }
-
-        //Configurando Banco de Dados
-        bancoDados = BancoDadosHelper(applicationContext)
-
-        //Carregando Dados da Tabela Vacinas
-
     }
 
     override fun onStart(){
         super.onStart()
+        recuperarVacinas()
 
-        try {
-            bancoDados.listarVacinas(listaVacinas)
-        }catch (e: Exception){
-            Log.i("TESTE: ", "ERRO AO CARREGAR TABELA")
-        }
+        viewModel.listaDeVacinas.observe(this, Observer {
+            configurarRecycleView(it)
+        })
 
-        //Configurando o Adapter
-        adaptador = AdapterVacina(listaVacinas, this)
+        viewModel.erroManager.observe(this, Observer {
+            exibirSnackbar("Erro ao acessar carregar os dados das vacinas")
+        })
+    }
 
-        //Configurando o RecycleView
-        recyclerView = findViewById(R.id.recyclerViewVacinas)
+    private fun instanciarViewModel(){
+        val bd = VacinaEmDiaDatabase.getInstance(this)
+        viewModel = ViewModelProvider(
+            this,
+            VacinaViewModelFactory(VacinasRepository(bd.vacinaDao))
+        ).get(VacinaViewModel::class.java)
+    }
+
+    private fun recuperarVacinas(){
+        viewModel.recuperarListaDeVacinas()
+    }
+
+    private fun configurarRecycleView(listaVacinas: ArrayList<Vacina>){
+        recyclerView = binding.recyclerViewVacinas
         recyclerView.layoutManager = LinearLayoutManager(applicationContext)
         recyclerView.setHasFixedSize(true)
         recyclerView.addItemDecoration(DividerItemDecoration(applicationContext, LinearLayout.VERTICAL))
-        recyclerView.adapter = adaptador
+        recyclerView.adapter = AdapterVacina(listaVacinas, this)
+    }
 
+    private fun exibirSnackbar(menssagem: String){
+        Snackbar.make(
+            binding.root,
+            menssagem,
+            Snackbar.LENGTH_LONG
+        ).show()
     }
 
     override fun onItemClickListener(vacina: Vacina) {
         val intent = Intent(applicationContext, DetalhesVacinaActivity::class.java)
-        intent.putExtra("objetoVacina", vacina)
+        intent.putExtra("idVacina", vacina.id)
         startActivity(intent)
     }
 
-    override fun onItemLongClickListener(vacina: Vacina) {
-        println("RESULTADO TESTE: ${vacina.dataUltimaDose}")
+    override fun onItemLongClickListener(vacina: Vacina){
+        println("TESTE: ${vacina.dataUltimaDose} onItemLongClickListener()")
     }
-
 
 }

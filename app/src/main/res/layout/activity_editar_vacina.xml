@@ -33,6 +33,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <include
+                android:id="@+id/formularioVacina"
                 layout="@layout/formulario_vacina"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
