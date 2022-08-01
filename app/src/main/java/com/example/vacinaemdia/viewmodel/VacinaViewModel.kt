@@ -3,6 +3,7 @@ package com.example.vacinaemdia.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.vacinaemdia.R
 import com.example.vacinaemdia.database.repository.VacinasRepository
 import com.example.vacinaemdia.model.Vacina
 import kotlinx.coroutines.launch
@@ -11,7 +12,7 @@ class VacinaViewModel(private val vacinasRepository: VacinasRepository) : ViewMo
 
     val listaDeVacinas = MutableLiveData<ArrayList<Vacina>>()
     val vacina = MutableLiveData<Vacina>()
-    val erroManager = MutableLiveData<String>()
+    val erroManager = MutableLiveData<Int>()
     val successManager = MutableLiveData<Boolean>()
 
 
@@ -25,7 +26,7 @@ class VacinaViewModel(private val vacinasRepository: VacinasRepository) : ViewMo
                 val lista  = vacinasRepository.listarTodaAsVacinas() as ArrayList<Vacina>
                 listaDeVacinas.postValue(lista)
             }catch (e: Exception){
-                erroManager.postValue("Erro ao acessar o Banco de Dados")
+                erroManager.postValue(R.string.aviso_erro_acesso_bd)
             }
         }
     }
@@ -37,10 +38,10 @@ class VacinaViewModel(private val vacinasRepository: VacinasRepository) : ViewMo
                     vacinasRepository.cadastrarVacina(vacina)
                     successManager.postValue(true)
                 }else{
-                    erroManager.postValue("Preencha o campo do nome da vacina")
+                    erroManager.postValue(R.string.aviso_campo_obrigatorio)
                 }
             }catch (e: Exception){
-                erroManager.postValue("Erro ao cadastar a vacina")
+                erroManager.postValue(R.string.aviso_erro_cadastro_bd)
             }
         }
     }
@@ -52,10 +53,10 @@ class VacinaViewModel(private val vacinasRepository: VacinasRepository) : ViewMo
                     vacinasRepository.atualizarVacina(vacina)
                     successManager.postValue(true)
                 }else{
-                    erroManager.postValue("Preencha o campo do nome da vacina")
+                    erroManager.postValue(R.string.aviso_campo_obrigatorio)
                 }
             }catch (e: Exception){
-                erroManager.postValue("Erro ao Atualizar os dados da vacina")
+                erroManager.postValue(R.string.aviso_erro_atualizacao_bd)
             }
         }
     }
@@ -65,7 +66,7 @@ class VacinaViewModel(private val vacinasRepository: VacinasRepository) : ViewMo
             try {
                 vacinasRepository.excluirVacina(vacina)
             }catch (e: Exception){
-                erroManager.postValue(e.message)
+                erroManager.postValue(R.string.aviso_erro_excluir_bd)
             }
         }
     }
@@ -76,7 +77,7 @@ class VacinaViewModel(private val vacinasRepository: VacinasRepository) : ViewMo
                 val v = vacinasRepository.buscarVacinaPorId(id)
                 vacina.postValue(v)
             }catch (e: Exception){
-                erroManager.postValue("Falha ao acessar os dados da Vacina")
+                erroManager.postValue(R.string.aviso_erro_acesso_bd)
             }
         }
     }

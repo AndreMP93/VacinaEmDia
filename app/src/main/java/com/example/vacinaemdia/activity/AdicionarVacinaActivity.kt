@@ -97,7 +97,7 @@ class AdicionarVacinaActivity : AppCompatActivity() {
 
     private fun setObserver() {
         viewModel.erroManager.observe(this, Observer {
-            exibirSnackbar(it)
+            exibirSnackbar(getString(it))
         })
 
         viewModel.successManager.observe(this, Observer {

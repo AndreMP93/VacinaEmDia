@@ -28,6 +28,10 @@
     <string name="vacina_pendente">0</string>
 
     <string name="aviso_campo_obrigatorio">"Preencha o campo do nome da vacina"</string>
+    <string name="aviso_erro_acesso_bd">"Erro ao acessar o Banco de Dados"</string>
+    <string name="aviso_erro_cadastro_bd">"Erro ao cadastar a vacina"</string>
+    <string name="aviso_erro_atualizacao_bd">"Erro ao Atualizar os dados da vacina"</string>
+    <string name="aviso_erro_excluir_bd">"Erro ao excluir o Banco de Dados"</string>
 
 
 </resources>

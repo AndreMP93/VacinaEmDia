@@ -87,7 +87,7 @@ class MainActivity : AppCompatActivity(), ClickItemVacinaListener {
         })
 
         viewModel.erroManager.observe(this, Observer {
-            exibirSnackbar(it)
+            exibirSnackbar(getString(it))
         })
     }
 }

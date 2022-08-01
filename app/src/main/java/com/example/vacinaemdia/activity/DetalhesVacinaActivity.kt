@@ -116,7 +116,7 @@ class DetalhesVacinaActivity : AppCompatActivity() {
         })
 
         viewModel.erroManager.observe(this, Observer {
-            exibirSnackbar(it)
+            exibirSnackbar(getString(it))
         })
     }
 
