@@ -17,6 +17,7 @@ import com.example.vacinaemdia.databinding.ActivityDetalhesVacinaBinding
 import com.example.vacinaemdia.model.Vacina
 import com.example.vacinaemdia.viewmodel.VacinaViewModel
 import com.example.vacinaemdia.viewmodel.VacinaViewModelFactory
+import com.google.android.material.snackbar.Snackbar
 import kotlin.properties.Delegates
 
 class DetalhesVacinaActivity : AppCompatActivity() {
@@ -51,10 +52,7 @@ class DetalhesVacinaActivity : AppCompatActivity() {
     override fun onStart(){
         super.onStart()
         buscarDadosVacina(idVacina)
-        viewModel.vacina.observe(this, Observer {
-            vacina = it
-            exibirDadosVacina()
-        })
+        setObserver()
     }
 
     @SuppressLint("SetTextI18n")
@@ -111,4 +109,22 @@ class DetalhesVacinaActivity : AppCompatActivity() {
         ).get(VacinaViewModel::class.java)
     }
 
+    private fun setObserver(){
+        viewModel.vacina.observe(this, Observer {
+            vacina = it
+            exibirDadosVacina()
+        })
+
+        viewModel.erroManager.observe(this, Observer {
+            exibirSnackbar(it)
+        })
+    }
+
+    private fun exibirSnackbar(menssagem: String){
+        Snackbar.make(
+            binding.root,
+            menssagem,
+            Snackbar.LENGTH_LONG
+        ).show()
+    }
 }

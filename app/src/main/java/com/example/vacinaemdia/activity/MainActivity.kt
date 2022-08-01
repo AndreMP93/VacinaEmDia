@@ -40,14 +40,17 @@ class MainActivity : AppCompatActivity(), ClickItemVacinaListener {
     override fun onStart(){
         super.onStart()
         recuperarVacinas()
+        setObserver()
+    }
 
-        viewModel.listaDeVacinas.observe(this, Observer {
-            configurarRecycleView(it)
-        })
+    override fun onItemClickListener(vacina: Vacina) {
+        val intent = Intent(applicationContext, DetalhesVacinaActivity::class.java)
+        intent.putExtra("idVacina", vacina.id)
+        startActivity(intent)
+    }
 
-        viewModel.erroManager.observe(this, Observer {
-            exibirSnackbar("Erro ao acessar carregar os dados das vacinas")
-        })
+    override fun onItemLongClickListener(vacina: Vacina){
+        println("TESTE: ${vacina.dataUltimaDose} onItemLongClickListener()")
     }
 
     private fun instanciarViewModel(){
@@ -78,14 +81,13 @@ class MainActivity : AppCompatActivity(), ClickItemVacinaListener {
         ).show()
     }
 
-    override fun onItemClickListener(vacina: Vacina) {
-        val intent = Intent(applicationContext, DetalhesVacinaActivity::class.java)
-        intent.putExtra("idVacina", vacina.id)
-        startActivity(intent)
-    }
+    private fun setObserver(){
+        viewModel.listaDeVacinas.observe(this, Observer {
+            configurarRecycleView(it)
+        })
 
-    override fun onItemLongClickListener(vacina: Vacina){
-        println("TESTE: ${vacina.dataUltimaDose} onItemLongClickListener()")
+        viewModel.erroManager.observe(this, Observer {
+            exibirSnackbar(it)
+        })
     }
-
 }

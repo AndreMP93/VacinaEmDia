@@ -12,6 +12,8 @@ class VacinaViewModel(private val vacinasRepository: VacinasRepository) : ViewMo
     val listaDeVacinas = MutableLiveData<ArrayList<Vacina>>()
     val vacina = MutableLiveData<Vacina>()
     val erroManager = MutableLiveData<String>()
+    val successManager = MutableLiveData<Boolean>()
+
 
     init {
         listaDeVacinas.postValue(ArrayList<Vacina>())
@@ -23,7 +25,7 @@ class VacinaViewModel(private val vacinasRepository: VacinasRepository) : ViewMo
                 val lista  = vacinasRepository.listarTodaAsVacinas() as ArrayList<Vacina>
                 listaDeVacinas.postValue(lista)
             }catch (e: Exception){
-                erroManager.postValue(e.message)
+                erroManager.postValue("Erro ao acessar o Banco de Dados")
             }
         }
     }
@@ -31,21 +33,29 @@ class VacinaViewModel(private val vacinasRepository: VacinasRepository) : ViewMo
     fun cadastrarNovaVacina(vacina: Vacina){
         viewModelScope.launch {
             try {
-                vacinasRepository.cadastrarVacina(vacina)
+                if (vacina.nomeVacina.isNotEmpty() || vacina.nomeVacina.isNotBlank()){
+                    vacinasRepository.cadastrarVacina(vacina)
+                    successManager.postValue(true)
+                }else{
+                    erroManager.postValue("Preencha o campo do nome da vacina")
+                }
             }catch (e: Exception){
-                erroManager.postValue(e.message)
+                erroManager.postValue("Erro ao cadastar a vacina")
             }
         }
     }
 
     fun atualizarDadosVacina(vacina: Vacina){
         viewModelScope.launch {
-            viewModelScope.launch {
-                try {
+            try {
+                if (vacina.nomeVacina.isNotEmpty() || vacina.nomeVacina.isNotBlank()) {
                     vacinasRepository.atualizarVacina(vacina)
-                }catch (e: Exception){
-                    erroManager.postValue(e.message)
+                    successManager.postValue(true)
+                }else{
+                    erroManager.postValue("Preencha o campo do nome da vacina")
                 }
+            }catch (e: Exception){
+                erroManager.postValue("Erro ao Atualizar os dados da vacina")
             }
         }
     }
@@ -66,7 +76,7 @@ class VacinaViewModel(private val vacinasRepository: VacinasRepository) : ViewMo
                 val v = vacinasRepository.buscarVacinaPorId(id)
                 vacina.postValue(v)
             }catch (e: Exception){
-                erroManager.postValue(e.message)
+                erroManager.postValue("Falha ao acessar os dados da Vacina")
             }
         }
     }

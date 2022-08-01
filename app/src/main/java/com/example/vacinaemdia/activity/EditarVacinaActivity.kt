@@ -37,24 +37,16 @@ class EditarVacinaActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         instanciarViewModel()
+        setObserver()
 
         //Recuperando dados do DetalhesVacinaACtivity
         val dados: Bundle? = intent.extras
         vacina = dados?.getSerializable("objetoVacina") as Vacina
+
         inicializarVariaveis(vacina)
 
-        viewModel.erroManager.observe(this, Observer {
-            exibirSnackbar(it)
-        })
-
         botaoSalvar.setOnClickListener {
-            if(boxNomeVacina.text.toString().isEmpty() || boxNomeVacina.text.toString().isBlank()){
-                boxNomeVacina.hint = getString(R.string.aviso_campo_obrigatorio)
-                boxNomeVacina.setHintTextColor(ContextCompat.getColor(applicationContext, R.color.vermelho))
-            }else{
-                atualizarDadosVacina()
-                finish()
-            }
+            atualizarDadosVacina()
         }
     }
 
@@ -90,7 +82,11 @@ class EditarVacinaActivity : AppCompatActivity() {
     }
 
     private fun atualizarDadosVacina(){
-        val dosesRecebidas = if(boxDosesRecebidas.text.toString().isEmpty() || boxDosesRecebidas.text.toString().isBlank()) 0 else boxDosesRecebidas.text.toString().toInt()
+        val dosesRecebidas = if(
+            boxDosesRecebidas.text.toString().isEmpty()
+            || boxDosesRecebidas.text.toString().isBlank()) 0
+        else boxDosesRecebidas.text.toString().toInt()
+
         val v = Vacina(
             boxNomeVacina.text.toString(),
             switchStatus.isChecked,
@@ -100,6 +96,18 @@ class EditarVacinaActivity : AppCompatActivity() {
             vacina.id
         )
         viewModel.atualizarDadosVacina(v)
+    }
+
+    private fun setObserver(){
+        viewModel.erroManager.observe(this, Observer {
+            exibirSnackbar(it)
+        })
+
+        viewModel.successManager.observe(this, Observer {
+            if (it){
+                finish()
+            }
+        })
     }
 
 }

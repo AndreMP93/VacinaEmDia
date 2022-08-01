@@ -39,19 +39,14 @@ class AdicionarVacinaActivity : AppCompatActivity() {
         inicializarVariaveis()
 
         botaoSalvar.setOnClickListener {
-            if(boxNomeVacina.text.toString().isEmpty() || boxNomeVacina.text.toString().isBlank()){
-                boxNomeVacina.hint = getString(R.string.aviso_campo_obrigatorio)
-                boxNomeVacina.setHintTextColor(ContextCompat.getColor(applicationContext, R.color.vermelho))
-            }else{
-                salvarVacinaBancoDados()
-                finish()
-            }
+            salvarVacinaBancoDados()
         }
 
-        viewModel.erroManager.observe(this, Observer {
-            exibirSnackbar(it)
-        })
+        setObserver()
+
     }
+
+
 
     private fun inicializarVariaveis(){
         botaoSalvar = binding.formularioVacina.buttonFormularioSalvar
@@ -82,7 +77,6 @@ class AdicionarVacinaActivity : AppCompatActivity() {
         )
 
         viewModel.cadastrarNovaVacina(v)
-        limparCampos()
     }
 
     private fun exibirSnackbar(menssagem: String){
@@ -99,6 +93,19 @@ class AdicionarVacinaActivity : AppCompatActivity() {
             this,
             VacinaViewModelFactory(VacinasRepository(bd.vacinaDao))
         ).get(VacinaViewModel::class.java)
+    }
+
+    private fun setObserver() {
+        viewModel.erroManager.observe(this, Observer {
+            exibirSnackbar(it)
+        })
+
+        viewModel.successManager.observe(this, Observer {
+            if (it){
+                limparCampos()
+                finish()
+            }
+        })
     }
 
 }
