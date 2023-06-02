@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.FormularioVacinaActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/tituloFormulario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="32dp"
+                android:gravity="center"
+                android:text="@string/tela_Adicionar_Vacina"
+                android:textColor="@color/preto"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textViewNomeVacina"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/nome_vacina"
+                android:textColor="@color/preto"
+                android:textSize="22sp" />
+
+            <EditText
+                android:id="@+id/editNomeVacina"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/caixa_texto_customizada"
+                android:ems="10"
+                android:hint="@string/nome_vacina"
+                android:inputType="textPersonName"
+                android:minHeight="48dp"
+                android:padding="8dp" />
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/switchVacinaStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:minHeight="48dp"
+                android:text="@string/status_vacina"
+                android:textOff="@string/vacina_pendente"
+                android:textOn="@string/vacinado"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/textViewQuantidade"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/doses_recebidas"
+                android:textColor="@color/preto"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/editDosesRecebidas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/caixa_texto_customizada"
+                android:ems="10"
+                android:hint="@string/quantidade_dose"
+                android:inputType="number"
+                android:minHeight="48dp"
+                android:padding="8dp" />
+
+            <TextView
+                android:id="@+id/textViewDataDose"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/data_doses_recebidas"
+                android:textColor="@color/preto"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/editDataUltVacinacao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/caixa_texto_customizada"
+                android:ems="10"
+                android:hint="@string/data_exemplo"
+                android:inputType="date"
+                android:minHeight="48dp"
+                android:padding="8dp" />
+
+            <TextView
+                android:id="@+id/textViewInfoVacina"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/informacoes"
+                android:textColor="@color/preto"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/editInformacoesVacina"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/caixa_texto_customizada"
+                android:ems="10"
+                android:gravity="top"
+                android:hint="@string/informacoes_vacina"
+                android:inputType="textMultiLine|textPersonName"
+                android:lines="3"
+                android:maxLines="6"
+                android:minHeight="48dp"
+                android:minLines="3"
+                android:nestedScrollingEnabled="true"
+                android:padding="8dp"
+                android:scrollbars="vertical"
+                android:singleLine="false" />
+
+            <Button
+                android:id="@+id/buttonFormularioSalvarAutualizar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/azul"
+                android:text="@string/botao_salvar"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

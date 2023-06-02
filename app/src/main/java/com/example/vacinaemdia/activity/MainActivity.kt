@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -33,7 +32,7 @@ class MainActivity : AppCompatActivity(), ClickItemVacinaListener {
         instanciarViewModel()
 
         binding.fabAddVacina.setOnClickListener{
-            startActivity(Intent(applicationContext, AdicionarVacinaActivity::class.java))
+            startActivity(Intent(applicationContext, FormularioVacinaActivity::class.java))
         }
     }
 
@@ -57,8 +56,8 @@ class MainActivity : AppCompatActivity(), ClickItemVacinaListener {
         val bd = VacinaEmDiaDatabase.getInstance(this)
         viewModel = ViewModelProvider(
             this,
-            VacinaViewModelFactory(VacinasRepository(bd.vacinaDao))
-        ).get(VacinaViewModel::class.java)
+            VacinaViewModelFactory(application, VacinasRepository(bd.vacinaDao))
+        )[VacinaViewModel::class.java]
     }
 
     private fun recuperarVacinas(){
@@ -82,12 +81,16 @@ class MainActivity : AppCompatActivity(), ClickItemVacinaListener {
     }
 
     private fun setObserver(){
-        viewModel.listaDeVacinas.observe(this, Observer {
+        viewModel.listaDeVacinas.observe(this) {
             configurarRecycleView(it)
-        })
+        }
 
-        viewModel.erroManager.observe(this, Observer {
-            exibirSnackbar(getString(it))
-        })
+        viewModel.validacao.observe(this){
+            exibirSnackbar(it.errorMessage())
+        }
+//
+//        viewModel.erroManager.observe(this, Observer {
+//            exibirSnackbar(getString(it))
+//        })
     }
 }

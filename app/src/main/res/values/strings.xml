@@ -18,10 +18,11 @@
     <string name="statusVacinaPendente">Vacina Pendente</string>
     <string name="statusData">Vacinado em</string>
     <string name="statusDoses">Doses da Vacina Recebidas:</string>
-
+    <string name="quantidade_dose">Doses Recebidas</string>
+    <string name="informacoes_vacina">Informações</string>
 
     <string name="botao_salvar">Salvar</string>
-    <string name="botao_editar">Editar Informações</string>
+    <string name="botao_editar">Atualizar Informações</string>
     <string name="botao_excluir">Excluir Vacina</string>
 
     <string name="vacinado">1</string>
@@ -32,6 +33,8 @@
     <string name="aviso_erro_cadastro_bd">"Erro ao cadastar a vacina"</string>
     <string name="aviso_erro_atualizacao_bd">"Erro ao Atualizar os dados da vacina"</string>
     <string name="aviso_erro_excluir_bd">"Erro ao excluir o Banco de Dados"</string>
+    <string name="aviso_dados_salvos">"Os dados da vacina foram salvos com sucesso"</string>
+
 
 
 </resources>

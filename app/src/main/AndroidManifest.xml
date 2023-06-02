@@ -10,17 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.VacinaEmDia">
         <activity
-            android:name=".activity.EditarVacinaActivity"
+            android:name=".activity.FormularioVacinaActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.AdicionarVacinaActivity"
-            android:exported="false"
-            android:parentActivityName=".activity.MainActivity" />
-        <activity
             android:name=".activity.DetalhesVacinaActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:exported="false"
-            android:parentActivityName=".activity.MainActivity" />
+            android:parentActivityName=".activity.MainActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".activity.MainActivity"
             android:exported="true">

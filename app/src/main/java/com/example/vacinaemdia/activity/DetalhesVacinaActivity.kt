@@ -8,7 +8,6 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.vacinaemdia.R
 import com.example.vacinaemdia.database.VacinaEmDiaDatabase
@@ -85,18 +84,18 @@ class DetalhesVacinaActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    fun inicializarVariaveis(){
+    private fun inicializarVariaveis(){
         nomeVacina = findViewById(R.id.textViewNomeVacina)
         detalheStatus = findViewById(R.id.detalheStatusVacina)
         detalheInformacoes = findViewById(R.id.detalheInformacoes)
     }
-    fun excluirVacina(v: Vacina){
-        viewModel.excluirVacina(vacina)
+    private fun excluirVacina(v: Vacina){
+        viewModel.excluirVacina(v)
         finish()
     }
 
-    fun editarVacina(v: Vacina){
-        val intent = Intent(applicationContext, EditarVacinaActivity::class.java)
+    private fun editarVacina(v: Vacina){
+        val intent = Intent(applicationContext, FormularioVacinaActivity::class.java)
         intent.putExtra("objetoVacina", v)
         startActivity(intent)
     }
@@ -105,19 +104,20 @@ class DetalhesVacinaActivity : AppCompatActivity() {
         val bd = VacinaEmDiaDatabase.getInstance(this)
         viewModel = ViewModelProvider(
             this,
-            VacinaViewModelFactory(VacinasRepository(bd.vacinaDao))
-        ).get(VacinaViewModel::class.java)
+            VacinaViewModelFactory(application, VacinasRepository(bd.vacinaDao))
+        )[VacinaViewModel::class.java]
     }
 
     private fun setObserver(){
-        viewModel.vacina.observe(this, Observer {
+        viewModel.vacina.observe(this){
             vacina = it
             exibirDadosVacina()
-        })
-
-        viewModel.erroManager.observe(this, Observer {
-            exibirSnackbar(getString(it))
-        })
+        }
+        viewModel.validacao.observe(this){
+            if(!it.status()){
+                exibirSnackbar(it.errorMessage())
+            }
+        }
     }
 
     private fun exibirSnackbar(menssagem: String){
